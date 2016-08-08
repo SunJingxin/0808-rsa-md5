@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>加解密及签名</title>
+<script src="js/zepto.min.js"> </script>
+<script src="js/jsencrypt.js"> </script>
+</head>
+<body>
+私钥<textarea id="pubkey" rows="15" cols="65" readonly="readonly"></textarea><br/><br/>
+
+输入<textarea id="input" rows="4" cols="65"></textarea><br/>
+<button id="btn">加密</button>
+</body>
+
+<script type="text/javascript">
+    
+ 	var pub_key = ""
+ 	+"-----BEGIN PUBLIC KEY-----\r\n"
+ 	+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDtu83H3VL73R9j4T2mpd95yaFL\r\n"
+ 	+"qiGhd22dLvqqKZQkn/tVOOQgig8OThlsz3lHvtJJE/L49+IO/l0LXno9zbs1m2Nk\r\n"
+ 	+"5po9jGu0DyUXq9EyEHDXJr4yI8aqHUy7pScnBOCoTQ7oe6Ji1lFFFN5foA55yPCE\r\n"
+ 	+"GRlIYI46vGdv1MvuFQIDAQAB\r\n"
+ 	+"-----END PUBLIC KEY-----"
+ 	+"";
+	$("#pubkey").val(pub_key);
+	 //加密
+	//pub_key= $("#pubkey").val();
+	// alert(pub_key2);
+	var crypt = new JSEncrypt();
+	crypt.setPublicKey(pub_key);
+	
+	//加密
+	$("#btn").click(function(){
+		var text = $("#input").val();
+		if(text==null||text==""){
+			alert("输入text");
+		}else{
+			var ciphertext = crypt.encrypt(text)
+			alert("加密后："+ciphertext);
+		}
+	});
+	
+	//最后传入后台的就是 name=fujian&age=18&sex=1&amount=1000&bindStatus=1&sign=加密后的签名
+</script>
+</html>
